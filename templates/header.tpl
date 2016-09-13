@@ -30,18 +30,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">MysqlDbDoc</a>
+          <a class="navbar-brand" href="<?php echo APP_URI;  ?>">MysqlDbDoc [<?php echo $this->data['current_host'] ?>]</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Conexões <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Conexão 1</a></li>
-                <li><a href="#">Conexão 2</a></li>
+                <?php
+                foreach($this->data['lstServidores'] as $servidor){
+                ?>
+                  <li><a href="connections/change/<?php echo $servidor['id'] ?>"><?php echo $servidor['alias'] ?></a></li>
+                <?php
+                  }
+                ?>
                 <li role="separator" class="divider"></li>
                 <li><a href="<?php echo APP_URI;  ?>connections">Gerenciar conexões</a></li>
-                <li><a href="<?php echo APP_URI;  ?>connections/list">Gerenciar conexões</a></li>
               </ul>
             </li>
             <!--

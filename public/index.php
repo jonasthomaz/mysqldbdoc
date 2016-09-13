@@ -1,4 +1,7 @@
 <?php
+session_cache_limiter(false);
+session_start();
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
@@ -27,13 +30,18 @@ $app->container->singleton('log', function () {
 //Inclusão do arquivo de singleton
 require_once('../singletons.php');
 
+
 //inclusao de rotas
 require_once('core.php');
 require_once('conexoes.php');
 
+$app->add(new CoreInfo($app->dbauthentication));
+
 // Define routes
 $app->get('/', function () use ($app) {
     $app->log->info("MysqlDbDoc '/' route");
+
+
     $app->render('index.tpl');
 });
 

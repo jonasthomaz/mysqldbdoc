@@ -60,4 +60,22 @@ class DbConnectionAdmin{
 
 		return ($db);
 	}
+
+
+	/**
+	 * Retorna listagem das Conexões Cadastradas
+	 * @param
+	 * @return array 	Listagem com nome e ids das conexões cadastradas
+	 */ 
+	public function getlist(){
+		$conections = array();
+		$query=$this->db->prepare("select * from dbconnections order by alias asc");
+		$query->execute();
+		
+		while($dbinfo = $query->fetch()){
+			$conections[]=array('id' => $dbinfo['id'], 'alias' => $dbinfo['alias']);
+		}
+
+		return ($conections);
+	}
 }
