@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>MysqlDbDoc</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="<?php echo APP_URI;  ?>css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo APP_URI;  ?>css/sticky-footer-navbar.css" rel="stylesheet">
     
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -40,7 +40,8 @@
                 <li><a href="#">Conexão 1</a></li>
                 <li><a href="#">Conexão 2</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Gerenciar conexões</a></li>
+                <li><a href="<?php echo APP_URI;  ?>connections">Gerenciar conexões</a></li>
+                <li><a href="<?php echo APP_URI;  ?>connections/list">Gerenciar conexões</a></li>
               </ul>
             </li>
             <!--
@@ -61,25 +62,3 @@
 
     <!-- Begin page content -->
     <div class="container">
-
-      <div class="page-header">
-        <h1>MysqlDbDoc</h1>
-        <h2>Documentando seu banco de dados.</h2>
-      </div>
-      <p class="lead">Aqui teremos a interface para edição da documentação do banco de dados, <code>não existirá a necessidade de login</code> uma vez que a conexão for configurada.</p>
-      <p>Mudanças acontecerão no decorrer do desenvolvimento.</p>
-    </div>
-
-
-
-    <footer class="footer">
-      <div class="container">
-        <p class="text-muted">jonasthomaz@gmail.com</p>
-      </div>
-    </footer>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-  </body>
-</html>

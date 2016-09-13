@@ -8,5 +8,5 @@ $app->get('/load',function() use ($app){
 
 // Define 404 template
 $app->notFound(function () use ($app) {
-    $app->render('404.html.twig');
+    $app->render('404.tpl');
 });

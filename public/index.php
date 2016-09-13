@@ -4,6 +4,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../vendor/autoload.php';
 require '../configs/database.php';
+require '../configs/filesystem.php';
 //Autoload das Classes
 spl_autoload_register(function ($classname) {
     require ("../classes/" . $classname . ".php");
@@ -26,10 +27,14 @@ $app->container->singleton('log', function () {
 //Inclusão do arquivo de singleton
 require_once('../singletons.php');
 
+//inclusao de rotas
+require_once('core.php');
+require_once('conexoes.php');
+
 // Define routes
 $app->get('/', function () use ($app) {
     $app->log->info("MysqlDbDoc '/' route");
-    $app->render('index.html');
+    $app->render('index.tpl');
 });
 
 
