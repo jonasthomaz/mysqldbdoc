@@ -23,31 +23,16 @@ $app->container->singleton('log', function () {
     return $log;
 });
 
-// Prepare view
-$app->view(new \Slim\Views\Twig());
-$app->view->parserOptions = array(
-    'charset' => 'utf-8',
-    'cache' => realpath('../templates/cache'),
-    'auto_reload' => true,
-    'strict_variables' => false,
-    'autoescape' => true
-);
-$app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
-
-
-
 //Inclusão do arquivo de singleton
 require_once('../singletons.php');
 
 // Define routes
 $app->get('/', function () use ($app) {
     $app->log->info("MysqlDbDoc '/' route");
-    //$app->render('index.html');
-
-    $conexoes = new DbConnectionAdmin($app->dbauthentication);
-    $an =  new DataAnalyze($conexoes->get(1));
-    print_r($an->getSchemas());
+    $app->render('index.html');
 });
+
+
 
 // Run app
 $app->run();
