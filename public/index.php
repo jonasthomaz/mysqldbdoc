@@ -37,15 +37,5 @@ require_once('conexoes.php');
 
 $app->add(new CoreInfo($app->dbauthentication));
 
-// Define routes
-$app->get('/', function () use ($app) {
-    $app->log->info("MysqlDbDoc '/' route");
-
-
-    $app->render('index.tpl');
-});
-
-
-
 // Run app
 $app->run();

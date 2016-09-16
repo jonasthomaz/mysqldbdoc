@@ -21,7 +21,10 @@ class CoreInfo extends Slim\Middleware{
 
 
     	//identifica o servidor atual
-    	$data['current_host']='local';
+        if(isset($_SESSION['current_host'])){
+            $data['current_host']=$_SESSION['current_host']['alias'];    
+        }
+
 
     	$this->app->view()->setData($data); 
     }

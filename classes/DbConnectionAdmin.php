@@ -51,6 +51,7 @@ class DbConnectionAdmin{
 		
 		while($dbinfo = $query->fetch(1)){
 			$db['id'] = $dbinfo['id'];
+			$db['alias'] = $dbinfo['alias'];
 			$db['hostname'] = $dbinfo['hostname'];
 			$db['database'] = $dbinfo['database'];
 			$db['port'] = $dbinfo['port'];
