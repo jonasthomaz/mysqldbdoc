@@ -30,7 +30,6 @@ $app->container->singleton('log', function () {
 //Inclusão do arquivo de singleton
 require_once('../singletons.php');
 
-
 //inclusao de rotas
 require_once('core.php');
 require_once('conexoes.php');

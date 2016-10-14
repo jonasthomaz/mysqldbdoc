@@ -40,5 +40,22 @@ class DataAnalyze{
 		$schemas=$query->fetchAll(PDO::FETCH_ASSOC);
 		return $schemas;
 	}
+
+	public function getTables($schema){
+		$query = $this->db_connection->prepare("SHOW TABLES FROM $schema");
+		$query->execute();
+
+		$tables=$query->fetchAll(PDO::FETCH_ASSOC);
+		return $tables;
+	}
+
+
+	public function getFields($schema,$table){
+		$query = $this->db_connection->prepare("SHOW TABLES FROM $schema.$table");
+		$query->execute();
+
+		$fields=$query->fetchAll(PDO::FETCH_ASSOC);
+		return $fields;
+	}	
 	
 }
