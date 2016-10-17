@@ -51,11 +51,20 @@ class DataAnalyze{
 
 
 	public function getFields($schema,$table){
-		$query = $this->db_connection->prepare("SHOW TABLES FROM $schema.$table");
+		$query = $this->db_connection->prepare('SHOW COLUMNS FROM '.$schema.'.'.$table);
 		$query->execute();
 
 		$fields=$query->fetchAll(PDO::FETCH_ASSOC);
 		return $fields;
 	}	
+
+	public function getFieldInfo($schema,$table,$field){
+		$query = $this->db_connection->prepare('SHOW COLUMNS FROM '.$schema.'.'.$table.' WHERE Field=:field');
+		$query->bindParam(':field',$field);
+		$query->execute();
+
+		$fields=$query->fetchAll(PDO::FETCH_ASSOC);
+		return $fields;
+	}
 	
 }
