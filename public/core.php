@@ -17,15 +17,16 @@ $app->get('/', function () use ($app) {
 
 
 $app->get('/read(/:schema(/:table(/:field)))',function($schema = '', $table = '', $field='') use ($app){
-    
+	$conexoes = new DbConnectionAdmin($app->dbauthentication);
+	$objComments =  new DbComments($app->dbauthentication);
+	$an =  new DataAnalyze($conexoes->get(1));
 
-
-
+	if(!isset($_SESSION['current_host'])){
+		$app->redirect('/');
+	}
 
     if($field != ''){
     	//rendereriza Campo
-    	$conexoes = new DbConnectionAdmin($app->dbauthentication);
-	    $an =  new DataAnalyze($conexoes->get(1));
 
 	    $data['breadcrumb']['localhost'] = APP_URI."read";
 	    $data['breadcrumb'][$schema] = APP_URI."read/$schema";
@@ -33,38 +34,53 @@ $app->get('/read(/:schema(/:table(/:field)))',function($schema = '', $table = ''
 
 	    $data['fieldinfo'] = $an->getFieldInfo($schema, $table, $field);
 	    $data['path_link'] = APP_URI."read/$schema/$table/$field";
+	    
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema/$table/$field";
+	    $data['comments'] = $objComments->get($data['objeto']);
 	    $app->view()->setData($data);
     	$app->render('template-field.tpl');
     }elseif($table != ''){
     	//rendereiza Tabela
-    	$conexoes = new DbConnectionAdmin($app->dbauthentication);
-	    $an =  new DataAnalyze($conexoes->get(1));
-
 	    $data['breadcrumb']['localhost'] = APP_URI."read";
 	    $data['breadcrumb'][$schema] = APP_URI."read/$schema";
-	    
 	    $data['fields'] = $an->getFields($schema, $table);
 	    $data['path_link'] = APP_URI."read/$schema/$table";
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema/$table";
+	    $data['comments'] = $objComments->get($data['objeto']);
 	    $app->view()->setData($data);
     	$app->render('template-table.tpl');
     }elseif($schema != ''){
     	//rendere schema
-    	$conexoes = new DbConnectionAdmin($app->dbauthentication);
-	    $an =  new DataAnalyze($conexoes->get(1));
-
 	    $data['breadcrumb']['localhost'] = APP_URI."read";
-	    
 	    $data['schema'] = $schema;
 	    $data['tables'] = $an->getTables($schema);
 	    $data['path_link'] = APP_URI."read/$schema";
-	    $app->view()->setData($data);
-    	$app->render('template-schema.tpl');
-    }else{
-    	$conexoes = new DbConnectionAdmin($app->dbauthentication);
-	    $an =  new DataAnalyze($conexoes->get(1));
-	    $data['breadcrumb'] = array();
-	    $data['schemas'] = $an->getSchemas();
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema";
+	    $data['comments'] = $objComments->get($data['objeto']);
 	    $app->view()->setData($data);
     	$app->render('template-database.tpl');
+    }else{
+	    $data['breadcrumb'] = array();
+	    $data['schemas'] = $an->getSchemas();
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias'];
+	    $data['comments'] = $objComments->get($data['objeto']);
+	    $app->view()->setData($data);
+    	$app->render('template-schema.tpl');
     }
 });
+
+
+$app->post('/savecomment', function () use ($app) {
+	$destino='';
+
+    $objComments =  new DbComments($app->dbauthentication);
+    $objComments->save($_POST['objeto'],$_POST['comment'],$_POST['tags']);
+	
+    if (strpos($_POST['objeto'], "/".$_SESSION['current_host']['alias']) !== false){
+        $occurrence = strpos($_POST['objeto'], "/".$_SESSION['current_host']['alias']);
+        $destino = substr_replace($_POST['objeto'],'', strpos($_POST['objeto'], "/".$_SESSION['current_host']['alias']), strlen("/".$_SESSION['current_host']['alias']));
+    }
+
+	$app->redirect('/read'.$destino);
+});
+

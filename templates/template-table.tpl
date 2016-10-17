@@ -4,6 +4,7 @@
 		<p><code><?php echo Helpers::breadcrumb($this->data['breadcrumb']); ?></code></p>
 	</div>
 
+	<?php include("comentario-bloco.tpl"); ?>
 
 	<section>
 	   <table id="mytable" class="table table-bordred table-striped">

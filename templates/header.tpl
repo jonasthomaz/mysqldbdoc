@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link href="<?php echo APP_URI;  ?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo APP_URI;  ?>css/sticky-footer-navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo APP_URI;  ?>bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
     
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
