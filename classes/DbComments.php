@@ -31,8 +31,8 @@ class DbComments{
 		while($dbinfo = $query->fetch(1)){
 			$db['id'] = $dbinfo['id'];
 			$db['objeto'] = $dbinfo['objeto'];
-			$db['comentario'] = $dbinfo['comentario'];
-			$db['tags'] = $dbinfo['tags'];
+			$db['comentario'] = utf8_encode($dbinfo['comentario']);
+			$db['tags'] = utf8_encode($dbinfo['tags']);
 		}
 
 		return ($db);
@@ -45,9 +45,31 @@ class DbComments{
 			ON DUPLICATE KEY UPDATE comentario = :comentario, tags = :tags;");
 		
 		$query->bindParam(':objeto', $objeto);
-		$query->bindParam(':comentario', $comentario);
-		$query->bindParam(':tags', $tags);
+		$query->bindParam(':comentario', utf8_decode($comentario));
+		$query->bindParam(':tags', utf8_decode($tags));
 
 		$query->execute();
+	}
+
+
+	public function find($arg){
+		$db = array();
+		$query=$this->db->prepare("select * from dbcomments where comentario like '%:objeto%' and  tags like '%:objeto%'");
+		$query->bindParam(':objeto', $arg);
+		$query->execute();
+		
+		$db['id'] = 0;
+		$db['objeto'] = "";
+		$db['comentario'] = "";
+		$db['tags'] = "";
+
+		while($dbinfo = $query->fetch()){
+			$db['id'] = $dbinfo['id'];
+			$db['objeto'] = $dbinfo['objeto'];
+			$db['comentario'] = utf8_encode($dbinfo['comentario']);
+			$db['tags'] = utf8_encode($dbinfo['tags']);
+		}
+
+		return ($db);
 	}
 }

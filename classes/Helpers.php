@@ -23,10 +23,13 @@ class Helpers{
 		$breadcrumb = '';
 
 		foreach ($nodes as $key => $value) {
-			if($breadcrumb != '')
-				$breadcrumb .= " > " ;
-
-			$breadcrumb .= "<a href='$value'>". $key ."</a>" ;
+			if($breadcrumb!='')
+				$breadcrumb .= ' >> ';
+			
+			if($value !='#')
+				$breadcrumb .= "<a href='$value'>". $key ."</a>" ;
+			else
+				$breadcrumb .= " $key ";
 		}
 
 		return $breadcrumb;

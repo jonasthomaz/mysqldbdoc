@@ -1,12 +1,12 @@
 <?php include("header.tpl"); ?>
 	<div class="page-header">
-		<h1><?php echo $_SESSION['current_host']['alias']; ?></h1>
+		<h2><?php echo $this->data['titulo']; ?></h2>
 		<p><code><?php echo Helpers::breadcrumb($this->data['breadcrumb']); ?></code></p>
 	</div>
 
 	<?php include("comentario-bloco.tpl"); ?>
 
-	<br/><br/><br/>
+	<br/><br/>
 	<section>
 	   <table id="mytable" class="table table-bordred table-striped">
 			<thead>

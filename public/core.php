@@ -15,7 +15,6 @@ $app->get('/', function () use ($app) {
 	}
 });
 
-
 $app->get('/read(/:schema(/:table(/:field)))',function($schema = '', $table = '', $field='') use ($app){
 	$conexoes = new DbConnectionAdmin($app->dbauthentication);
 	$objComments =  new DbComments($app->dbauthentication);
@@ -27,10 +26,12 @@ $app->get('/read(/:schema(/:table(/:field)))',function($schema = '', $table = ''
 
     if($field != ''){
     	//rendereriza Campo
+		$data['titulo'] = $field;
 
 	    $data['breadcrumb']['localhost'] = APP_URI."read";
 	    $data['breadcrumb'][$schema] = APP_URI."read/$schema";
 	    $data['breadcrumb'][$table] = APP_URI."read/$schema/$table";
+	    $data['breadcrumb'][$field] = '#';
 
 	    $data['fieldinfo'] = $an->getFieldInfo($schema, $table, $field);
 	    $data['path_link'] = APP_URI."read/$schema/$table/$field";
@@ -41,8 +42,11 @@ $app->get('/read(/:schema(/:table(/:field)))',function($schema = '', $table = ''
     	$app->render('template-field.tpl');
     }elseif($table != ''){
     	//rendereiza Tabela
+    	$data['titulo'] = $table;
+
 	    $data['breadcrumb']['localhost'] = APP_URI."read";
 	    $data['breadcrumb'][$schema] = APP_URI."read/$schema";
+	    $data['breadcrumb'][$table] = '#';
 	    $data['fields'] = $an->getFields($schema, $table);
 	    $data['path_link'] = APP_URI."read/$schema/$table";
 	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema/$table";
@@ -51,8 +55,10 @@ $app->get('/read(/:schema(/:table(/:field)))',function($schema = '', $table = ''
     	$app->render('template-table.tpl');
     }elseif($schema != ''){
     	//rendere schema
+    	$data['titulo'] = $schema;
+		$data['schema'] = $schema;
 	    $data['breadcrumb']['localhost'] = APP_URI."read";
-	    $data['schema'] = $schema;
+	    $data['breadcrumb'][$schema] = '#';
 	    $data['tables'] = $an->getTables($schema);
 	    $data['path_link'] = APP_URI."read/$schema";
 	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema";
@@ -60,7 +66,9 @@ $app->get('/read(/:schema(/:table(/:field)))',function($schema = '', $table = ''
 	    $app->view()->setData($data);
     	$app->render('template-database.tpl');
     }else{
-	    $data['breadcrumb'] = array();
+    	$data['titulo'] = $_SESSION['current_host']['alias'];
+
+	    $data['breadcrumb']['localhost'] = '#'; 
 	    $data['schemas'] = $an->getSchemas();
 	    $data['objeto'] = "/".$_SESSION['current_host']['alias'];
 	    $data['comments'] = $objComments->get($data['objeto']);
@@ -84,3 +92,11 @@ $app->post('/savecomment', function () use ($app) {
 	$app->redirect('/read'.$destino);
 });
 
+
+$app->get('/busca', function () use ($app) {
+
+});
+
+$app->post('/busca', function () use ($app) {
+	
+});
