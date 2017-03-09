@@ -8,8 +8,8 @@
     <title>MysqlDbDoc</title>
 
     <!-- Bootstrap -->
-    <link href="<?php echo APP_URI;  ?>css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo APP_URI;  ?>css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="<?php echo APP_URI; ?>css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo APP_URI; ?>css/sticky-footer-navbar.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo APP_URI;  ?>bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
     
 
@@ -55,7 +55,7 @@
             <li><a href="#">Sobre</a></li>
             -->
           </ul>
-          <form class="navbar-form navbar-right">
+          <form class="navbar-form navbar-right" method="post">
             <div class="form-group">
               <input name="txtargumentobusca" id="txtargumentobusca" type="text" class="form-control" placeholder="Procurando alguma coisa?">
             </div>
