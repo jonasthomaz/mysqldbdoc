@@ -55,7 +55,7 @@
             <li><a href="#">Sobre</a></li>
             -->
           </ul>
-          <form class="navbar-form navbar-right" method="post">
+          <form class="navbar-form navbar-right" method="post" action="<?php echo APP_URI;  ?>busca">
             <div class="form-group">
               <input name="txtargumentobusca" id="txtargumentobusca" type="text" class="form-control" placeholder="Procurando alguma coisa?">
             </div>

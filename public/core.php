@@ -94,9 +94,126 @@ $app->post('/savecomment', function () use ($app) {
 
 
 $app->get('/busca', function () use ($app) {
-
+	
 });
 
 $app->post('/busca', function () use ($app) {
-	
+	$conexoes = new DbConnectionAdmin($app->dbauthentication);
+	$objComments =  new DbComments($app->dbauthentication);
+	$an =  new DataAnalyze($conexoes->get(1));
+
+	if(!isset($_SESSION['current_host'])){
+		$app->redirect('/');
+
+	$conexoes = new DbConnectionAdmin($app->dbauthentication);
+	$objComments =  new DbComments($app->dbauthentication);
+	$an =  new DataAnalyze($conexoes->get(1));
+	print_r($_POST);
+	/*
+    if($field != ''){
+    	//rendereriza Campo
+		$data['titulo'] = $field;
+
+	    $data['breadcrumb']['localhost'] = APP_URI."read";
+	    $data['breadcrumb'][$schema] = APP_URI."read/$schema";
+	    $data['breadcrumb'][$table] = APP_URI."read/$schema/$table";
+	    $data['breadcrumb'][$field] = '#';
+
+	    $data['fieldinfo'] = $an->getFieldInfo($schema, $table, $field);
+	    $data['path_link'] = APP_URI."read/$schema/$table/$field";
+	    
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema/$table/$field";
+	    $data['comments'] = $objComments->get($data['objeto']);
+	    $app->view()->setData($data);
+    	$app->render('template-field.tpl');
+    }elseif($table != ''){
+    	//rendereiza Tabela
+    	$data['titulo'] = $table;
+
+	    $data['breadcrumb']['localhost'] = APP_URI."read";
+	    $data['breadcrumb'][$schema] = APP_URI."read/$schema";
+	    $data['breadcrumb'][$table] = '#';
+	    $data['fields'] = $an->getFields($schema, $table);
+	    $data['path_link'] = APP_URI."read/$schema/$table";
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema/$table";
+	    $data['comments'] = $objComments->get($data['objeto']);
+	    $app->view()->setData($data);
+    	$app->render('template-table.tpl');
+    }elseif($schema != ''){
+    	//rendere schema
+    	$data['titulo'] = $schema;
+		$data['schema'] = $schema;
+	    $data['breadcrumb']['localhost'] = APP_URI."read";
+	    $data['breadcrumb'][$schema] = '#';
+	    $data['tables'] = $an->getTables($schema);
+	    $data['path_link'] = APP_URI."read/$schema";
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema";
+	    $data['comments'] = $objComments->get($data['objeto']);
+	    $app->view()->setData($data);
+    	$app->render('template-database.tpl');
+    }else{
+    	$data['titulo'] = $_SESSION['current_host']['alias'];
+
+	    $data['breadcrumb']['localhost'] = '#'; 
+	    $data['schemas'] = $an->getSchemas();
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias'];
+	    $data['comments'] = $objComments->get($data['objeto']);
+	    $app->view()->setData($data);
+    	$app->render('template-schema.tpl');
+    }
+
+    if($field != ''){
+    	//rendereriza Campo
+		$data['titulo'] = $field;
+
+	    $data['breadcrumb']['localhost'] = APP_URI."read";
+	    $data['breadcrumb'][$schema] = APP_URI."read/$schema";
+	    $data['breadcrumb'][$table] = APP_URI."read/$schema/$table";
+	    $data['breadcrumb'][$field] = '#';
+
+	    $data['fieldinfo'] = $an->getFieldInfo($schema, $table, $field);
+	    $data['path_link'] = APP_URI."read/$schema/$table/$field";
+	    
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema/$table/$field";
+	    $data['comments'] = $objComments->get($data['objeto']);
+	    $app->view()->setData($data);
+    	$app->render('template-field.tpl');
+    }elseif($table != ''){
+    	//rendereiza Tabela
+    	$data['titulo'] = $table;
+
+	    $data['breadcrumb']['localhost'] = APP_URI."read";
+	    $data['breadcrumb'][$schema] = APP_URI."read/$schema";
+	    $data['breadcrumb'][$table] = '#';
+	    $data['fields'] = $an->getFields($schema, $table);
+	    $data['path_link'] = APP_URI."read/$schema/$table";
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema/$table";
+	    $data['comments'] = $objComments->get($data['objeto']);
+	    $app->view()->setData($data);
+    	$app->render('template-table.tpl');
+    }elseif($schema != ''){
+    	//rendere schema
+    	$data['titulo'] = $schema;
+		$data['schema'] = $schema;
+	    $data['breadcrumb']['localhost'] = APP_URI."read";
+	    $data['breadcrumb'][$schema] = '#';
+	    $data['tables'] = $an->getTables($schema);
+	    $data['path_link'] = APP_URI."read/$schema";
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias']."/$schema";
+	    $data['comments'] = $objComments->get($data['objeto']);
+	    $app->view()->setData($data);
+
+    }else{
+    	$data['titulo'] = $_SESSION['current_host']['alias'];
+
+	    $data['breadcrumb']['localhost'] = '#'; 
+	    $data['schemas'] = $an->getSchemas();
+	    $data['objeto'] = "/".$_SESSION['current_host']['alias'];
+	    $data['comments'] = $objComments->get($data['objeto']);
+	    $app->view()->setData($data);
+    }
+
+	$app->render('template-search.tpl');
+	*/
+
 });
