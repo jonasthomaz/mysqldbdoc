@@ -19,7 +19,6 @@
         "twig/twig": "1.*",
         "components/jquery": "1.*",
         "components/bootstrap" : "3.*",
-        "robmorgan/phinx"
+        "robmorgan/phinx": "^0.8.1" 
     }
 }
-        
