@@ -51,23 +51,32 @@ class DbComments{
 		$query->execute();
 	}
 
-
+	/**
+	 * Realiza a busca na base de Informações.
+	 */ 
 	public function find($arg){
 		$db = array();
-		$query=$this->db->prepare("select * from dbcomments where comentario like '%:objeto%' and  tags like '%:objeto%'");
-		$query->bindParam(':objeto', $arg);
-		$query->execute();
-		
-		$db['id'] = 0;
-		$db['objeto'] = "";
-		$db['comentario'] = "";
-		$db['tags'] = "";
 
-		while($dbinfo = $query->fetch()){
-			$db['id'] = $dbinfo['id'];
-			$db['objeto'] = $dbinfo['objeto'];
-			$db['comentario'] = utf8_encode($dbinfo['comentario']);
-			$db['tags'] = utf8_encode($dbinfo['tags']);
+		if(isset($arg['host']) && isset($arg['comment'])){
+			$arg['host'] = '/'.$arg['host'];
+			$query = $this->db->prepare(
+				"select 
+					* 
+				from 
+					dbcomments 
+				where 
+					objeto like '".$arg['host']."%' 
+					AND (comentario like '%".$arg['comment']."%' OR  tags like '%".$arg['comment']."%')"
+			);
+			$query->execute();
+			while($dbinfo = $query->fetch()){
+				$db[] = array(
+					'id'=> $dbinfo['id'], 
+					'objeto' => $dbinfo['objeto'], 
+					'comentario' => utf8_encode($dbinfo['comentario']), 
+					'tags' => utf8_encode($dbinfo['tags'])
+				);
+			}
 		}
 
 		return ($db);

@@ -93,10 +93,6 @@ $app->post('/savecomment', function () use ($app) {
 });
 
 
-$app->get('/busca', function () use ($app) {
-	
-});
-
 $app->post('/busca', function () use ($app) {
 	$conexoes = new DbConnectionAdmin($app->dbauthentication);
 	$objComments =  new DbComments($app->dbauthentication);
@@ -105,8 +101,13 @@ $app->post('/busca', function () use ($app) {
 	if(!isset($_SESSION['current_host']))
 		$app->redirect('/');
 
-	$conexoes = new DbConnectionAdmin($app->dbauthentication);
-	$objComments =  new DbComments($app->dbauthentication);
-	$an =  new DataAnalyze($conexoes->get(1));
-	print_r($_POST);
+	$args['host'] = $_SESSION['current_host']['alias'];
+	if(isset($_POST['txtargumentobusca']));
+		$args['comment'] = $_POST['txtargumentobusca'];
+
+	$data['titulo'] = 'Resultado da Busca';
+	$data['breadcrumb'][''] = '#';
+	$data['result'] = $objComments->find($args);
+	$app->view()->setData($data);
+    $app->render('template-search.tpl');
 });

@@ -29,6 +29,7 @@ class DataAnalyze{
 			$this->db_connection = new PDO("mysql:host=".$this->dbinfo['hostname'].";dbname=".$this->dbinfo['database'], $this->dbinfo['username'], $this->dbinfo['password']);
 			$this->db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);	
 		} catch (PdoException $e) {
+			print_r($e);
 			return false;
 		}
 		return true;

@@ -4,24 +4,25 @@
 		<p><code><?php echo Helpers::breadcrumb($this->data['breadcrumb']); ?></code></p>
 	</div>
 
-	<?php include("comentario-bloco.tpl"); ?>
-
-	<br/><br/>
 	<section>
 	   <table id="mytable" class="table table-bordred table-striped">
 			<thead>
-				<th>Schemas</th>
-				<th></th>
+				<th>Objeto</th>
+				<th>Comentários</th>
+				<th>Tags</th>
 			</thead>
 		    <tbody>
-		    	<?php foreach($this->data['schemas'] as $schema){ ?>
+		    	<?php foreach($this->data['result'] as $result){ ?>
 		    	<tr>
 		    		<td>
-					    <a href="<?php echo APP_URI;  ?>read/<?php echo $schema['Database']; ?>">
-							<?php echo $schema['Database']; ?>
-						</a>
+						<?php echo $result['objeto']; ?>
 		    		</td>
-		    		<td></td>
+		    		<td>
+		    			<?php echo $result['comentario']; ?>
+		    		</td>
+		    		<td>
+		    			<?php echo $result['tags']; ?>
+		    		</td>
 		    	</tr>
 		    	<?php
 		    	}

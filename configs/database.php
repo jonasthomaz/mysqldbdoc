@@ -7,5 +7,5 @@
 define('DBhost', 'localhost');
 define('DBport', '3306');
 define('DBuser', 'root');
-define('DBpassword', 'root');
+define('DBpassword', '');
 define('DBbasename', 'mysqldbdoc');
